@@ -1,0 +1,54 @@
+<div class="container mb-5">
+    <div class="row pt-3 align-items-center">
+        <!-- header -->
+        <div class="col-8 fw-bold">Welcome Back !</div>
+        <div class="col-4 text-end position-relative">
+            <img src="/assets/icons/avathar.png" alt="profile" (click)="toggeleLogout()" class="profile-icon">
+            <div class="position-absolute p-3 fw-bold log-btn" (click)="logOut()" *ngIf="showLogout">Log out</div>
+        </div>
+        <!-- top carousel section -->
+        <div class="col-12 p-0 py-2">
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="/assets/c-1.jpg" class="d-block w-100 carousel-img" alt="image">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="/assets/c-2.jpg" class="d-block w-100 carousel-img" alt="image">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- tab sections -->
+        <div class="col-12 shadow">
+            <div class="row">
+                <div class="col-6 col-md-3 shadow border" routerLink="/attendance/mark-attendance">
+                    <img src="/assets/attendance.png" alt="attendance" class="w-100 home-tabs">
+                    <h3 class="text-center">Take Attendance</h3>
+                </div>
+                <div class="col-6 col-md-3 shadow border" routerLink="/notes/upload-notes">
+                    <img src="/assets/upload-notes.png" alt="upload notes" class="w-100 home-tabs">
+                    <h3 class="text-center">upload notes</h3>
+                </div>
+                <div class="col-6 col-md-3 shadow border">
+                    <img src="/assets/timetable.png" alt="timetable" class="w-100 home-tabs">
+                    <h3 class="text-center">check time table</h3>
+                </div>
+                <div class="col-6 col-md-3 shadow border">
+                    <img src="/assets/leave.png" alt="leave" class="w-100 home-tabs">
+                    <h3 class="text-center">Leave request</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

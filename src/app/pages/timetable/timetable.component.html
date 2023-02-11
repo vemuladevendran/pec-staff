@@ -1,0 +1,61 @@
+<div class="container mb-5">
+    <div class="row">
+        <h2 class="m-0 mb-3">Time Table</h2>
+        <!-- department details -->
+        <div class="col-12 col-lg-12 mt-3 border py-3" *ngFor="let table of timeTableList">
+            <!-- class details -->
+            <div class="d-flex flex-wrap justify-content-between mb-2">
+                <p class="fw-bold">Department : {{table.departmentName}}</p>
+                <p class="fw-bold">year : {{table.year}}</p>
+            </div>
+            <p class="fw-bold">{{table.section}} - section</p>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Day/Period</th>
+                            <th scope="col" *ngFor="let l of [1,2,3,4,5,6,7,8]">{{l}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Monday</th>
+                            <td *ngFor="let s of [1,2,3,4,5,6,7,8]; index as i"
+                                [ngClass]="teacherSubject === table.timeTable.monday[s] ? 'bg-success text-white' : ''">
+                                {{table.timeTable.monday[s]}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuesday</th>
+                            <td *ngFor="let s of [1,2,3,4,5,6,7,8]; index as i"
+                                [ngClass]="teacherSubject === table.timeTable.tuesday[s] ? 'bg-success text-white' : ''">
+                                {{table.timeTable.tuesday[s]}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wednesday</th>
+                            <td *ngFor="let s of [1,2,3,4,5,6,7,8]; index as i"
+                                [ngClass]="teacherSubject === table.timeTable.wednesday[s] ? 'bg-success text-white' : ''">
+                                {{table.timeTable.wednesday[s]}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Thursday</th>
+                            <td *ngFor="let s of [1,2,3,4,5,6,7,8]; index as i"
+                                [ngClass]="teacherSubject === table.timeTable.thursday[s] ? 'bg-success text-white' : ''">
+                                {{table.timeTable.thursday[s]}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Friday</th>
+                            <td *ngFor="let s of [1,2,3,4,5,6,7,8]; index as i"
+                                [ngClass]="teacherSubject === table.timeTable.friday[s] ? 'bg-success text-white' : ''">
+                                {{table.timeTable.friday[s]}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

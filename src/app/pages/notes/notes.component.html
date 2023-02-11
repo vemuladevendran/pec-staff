@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row py-3">
+        <!-- add department -->
+
+        <div class="d-flex justify-content-between flex-wrap align-items-center mb-4">
+            <h2 class="m-0">Notes</h2>
+            <!-- add student btn -->
+            <div>
+                <button class="btn btn-primary btn-sm rounded shadow m-0 text-white" routerLink="upload-notes">
+                    <span class="h6 pe-1">&#43;</span> upload notes
+                </button>
+            </div>
+        </div>
+        <!-- filters form -->
+        <form class="row" [formGroup]="filtersForm">
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="departmentName">
+                        <mat-option value="">All </mat-option>
+                        <mat-option *ngFor="let department of departmentList" [value]="department.departmentName">
+                            {{ department.departmentName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Year</mat-label>
+                    <mat-select formControlName="year">
+                        <mat-option value="">All </mat-option>
+                        <mat-option value="firstYear">First Year </mat-option>
+                        <mat-option value="secondYear">Second Year </mat-option>
+                        <mat-option value="thirdYear">Third Year </mat-option>
+                        <mat-option value="fourthYear">Fourth Year </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+        <!-- department details -->
+        <h2 *ngIf="notes.length === 0" class="text-center">No Data found</h2>
+        <div class="col-12 table-responsive mt-3" *ngIf="notes.length > 0">
+            <table class="table table-hover border">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">Department</th>
+                        <th scope="col" class="text-center">Year</th>
+                        <th scope="col" class="text-center">Subject</th>
+                        <th scope="col" class="text-center">Unit</th>
+                        <th scope="col" class="text-center">Download</th>
+                        <th scope="col" class="text-center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let n of notes; index as i">
+                        <th scope="row" class="text-center">{{i+1}}</th>
+                        <th class="text-center">{{n.departmentName}}</th>
+                        <th class="text-center">{{n.year}}</th>
+                        <th class="text-center">{{n.subject}}</th>
+                        <th class="text-center">{{n.unit}}</th>
+                        <th class="text-center">
+                            <a  target="_blank" [href]="n?.pdfFile" download>
+                                <mat-icon aria-hidden="false" aria-label="Edit" matTooltip="Download">download</mat-icon>
+                            </a>
+                        </th>
+                        <th>
+                            <div class="text-center cursor-pointer" (click)="deleteNotes(n.id)">
+                                <mat-icon aria-hidden="false" aria-label="Edit" matTooltip="Delete">delete</mat-icon>
+                              </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

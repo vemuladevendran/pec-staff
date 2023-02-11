@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-between flex-wrap align-items-center mb-4 p-2 border">
+            <h4 class="m-0 fw-bold">Attendance Report</h4>
+            <div>
+                <button class="btn btn-primary btn-sm rounded shadow m-0 text-white" routerLink="mark-attendance">
+                    <span class="h6 pe-1">&#43;</span> Take Attendance
+                </button>
+            </div>
+        </div>
+        <!-- filters details -->
+        <form class="row" [formGroup]="filtersForm">
+            <div class="col-12 col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Year</mat-label>
+                    <mat-select formControlName="year">
+                        <mat-option value="">All </mat-option>
+                        <mat-option value="firstYear">First Year </mat-option>
+                        <mat-option value="secondYear">Second Year </mat-option>
+                        <mat-option value="thirdYear">Third Year </mat-option>
+                        <mat-option value="fourthYear">Fourth Year </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+        <!-- no data found -->
+        <div class="col-12 text-center fw-bold" *ngIf="attendanceReports.length === 0">No Attendance is marked on this date.</div>
+        <div class="col-12 col-lg-12 mt-3 table-responsive py-3 px-1" *ngIf="attendanceReports.length > 0">
+            <!-- small screen table -->
+            <table class="table table-hover border border-dark">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">Date</th>
+                        <th scope="col" class="text-center">Department</th>
+                        <th scope="col" class="text-center">Year</th>
+                        <th scope="col" class="text-center">section</th>
+                        <th scope="col" class="text-center">period</th>
+                        <th scope="col" class="text-center">Subject Name</th>
+                        <th scope="col" class="text-center">total present</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let l of attendanceReports; index as i" (click)="absentList(l.students)">
+                        <th scope="row" class="text-center">{{i+1}}</th>
+                        <td class="text-center">{{l.date | date}}</td>
+                        <td class="text-center">{{l.departmentName}}</td>
+                        <td class="text-center">{{l.year}}</td>
+                        <td class="text-center">{{l.section}}</td>
+                        <td class="text-center">{{l.periodNumber}}</td>
+                        <td class="text-center">{{l.subject}}</td>
+                        <td class="text-center">{{l.students.length -l.absentCount}} / {{l.students.length}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

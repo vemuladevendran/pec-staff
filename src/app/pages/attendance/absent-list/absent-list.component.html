@@ -1,0 +1,19 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Exam Number</th>
+                <th scope="col" class="text-center">Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let s of students; index as i"
+                [ngClass]="!s.attendance ? 'bg-danger' : 'bg-light'">
+                <th scope="row" class="text-center">{{i+1}}</th>
+                <td class="text-center">{{s.examNumber}}</td>
+                <td class="text-center">{{s.attendance ? 'Present' : 'Absent'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
