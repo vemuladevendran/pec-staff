@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: 'attendance', loadChildren: () => import('./pages/attendance/attendance.module').then(m => m.AttendanceModule) },
       { path: 'timetable', loadChildren: () => import('./pages/timetable/timetable.module').then(m => m.TimetableModule) },
       { path: 'notes', loadChildren: () => import('./pages/notes/notes.module').then(m => m.NotesModule) },
+      { path: 'marks', loadChildren: () => import('./pages/marks/marks.module').then(m => m.MarksModule) },
       {
         path: '**',
         redirectTo: '/home',

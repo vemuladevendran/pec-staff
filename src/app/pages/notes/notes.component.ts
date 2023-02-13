@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {  NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 import { DepartmentService } from 'src/app/services/department/department.service';
@@ -24,10 +25,12 @@ export class NotesComponent implements OnInit {
     private departmentServe: DepartmentService,
     private toast: ToastrService,
     private notesServe: NotesService,
+    private loader: NgxSpinnerService,
   ) {
     this.filtersForm = this.fb.group({
       departmentName: [''],
       year: [''],
+      semester: [''],
     });
     this.filtersForm.valueChanges.pipe(debounceTime(800))
       .subscribe(() => {
@@ -49,10 +52,12 @@ export class NotesComponent implements OnInit {
   // get notes
   async getNotesList(filters: any): Promise<void> {
     try {
+      this.loader.show();
       this.notes = await this.notesServe.getNotes(filters);
     } catch (error) {
       console.log(error);
-
+    }finally{
+      this.loader.hide();
     }
   }
 
@@ -70,12 +75,15 @@ export class NotesComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
+        this.loader.show();
         await this.notesServe.deleteNotes(id);
         this.toast.success('Deleted');
         this.getNotesList(this.filters);
       } catch (error) {
         console.log(error, 'fail to delete');
         this.toast.error('Fail to Delete');
+      }finally{
+        this.loader.hide();
       }
     }
   }

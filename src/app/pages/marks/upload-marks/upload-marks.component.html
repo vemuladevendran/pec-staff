@@ -1,0 +1,55 @@
+<div class="container mb-5">
+    <form class="row py-2" [formGroup]="marksForm" (ngSubmit)="handleSubmit()">
+        <div class="col-12">
+            <h3>Enter Marks</h3>
+            <div>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Exam Name</mat-label>
+                    <mat-select formControlName="exam">
+                        <mat-option value="internal-1">Internal 1</mat-option>
+                        <mat-option value="internal-2">Internal 2</mat-option>
+                        <mat-option value="internal-3">Internal 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- mark list table -->
+        </div>
+        <div class="col-12 table-responsive" *ngIf="studentsList.length > 0">
+            <table class="row table table-hover">
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="text-center col-1">#</th>
+                        <th scope="col" class="text-center col-4 col-md-4 d-none d-md-block">Name</th>
+                        <th scope="col" class="text-center col-6 col-md-4">Exam Number</th>
+                        <th scope="col" class="text-center col-5 col-md-3">Marks</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="students">
+                    <tr *ngFor="let s of studentsList; index as i" [formGroupName]="i" class="d-flex">
+                        <th scope="row" class="text-center col-1">{{i+1}}</th>
+                        <td class="text-center col-4 d-none d-md-block">{{s.studentName}}</td>
+                        <td class="text-center col-6 col-md-4">{{s.examNumber}}</td>
+                        <td class="text-center col-5 col-md-3">
+                            <input type="number" placeholder="Enter Mark" formControlName="marks" min="0" max="100"
+                                class="py-2 w-100">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- form buttons -->
+        <div class="d-flex justify-content-end flex-wrap">
+            <div>
+                <a [routerLink]="['/marks']" class="btn bg-danger text-white btn-sm me-3 rounded shadow">
+                    <span class="h6">&#10006; </span>
+                    Cancel
+                </a>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm rounded shadow" [disabled]="marksForm.invalid">
+                    upload marks
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

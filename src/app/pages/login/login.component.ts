@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -15,11 +16,13 @@ export class LoginComponent implements OnInit {
     private authServe: AuthService,
     private toast: ToastrService,
     private router: Router,
+    private loader: NgxSpinnerService,
   ) {
   }
 
   async login(e: Event): Promise<void> {
     try {
+      this.loader.show();
       e.preventDefault();
       const data:any = await this.authServe.checkEmail({email: this.email.value});
       if(data?.message === 'setpassword'){
@@ -31,6 +34,8 @@ export class LoginComponent implements OnInit {
     } catch (error: any) {
       console.error(error);
       this.toast.error(error?.error.message)
+    }finally{
+      this.loader.show();
     }
   }
 

@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row p-2">
+        <form class="row" [formGroup]="filtersForm" (ngSubmit)="submit()">
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="departmentName">
+                        <mat-option value="">All </mat-option>
+                        <mat-option *ngFor="let department of departmentList" [value]="department.departmentName">
+                            {{ department.departmentName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Year</mat-label>
+                    <mat-select formControlName="year">
+                        <mat-option value="firstYear">First Year </mat-option>
+                        <mat-option value="secondYear">Second Year </mat-option>
+                        <mat-option value="thirdYear">Third Year </mat-option>
+                        <mat-option value="fourthYear">Fourth Year </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Semester</mat-label>
+                    <mat-select formControlName="semester">
+                        <mat-option [value]="s" *ngFor="let s of [1,2,3,4,5,6,7,8]">{{s}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" [disabled]="filtersForm.invalid">Search</button>
+            </div>
+        </form>
+    </div>
+</div>

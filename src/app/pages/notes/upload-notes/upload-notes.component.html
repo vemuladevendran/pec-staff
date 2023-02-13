@@ -26,6 +26,14 @@
             </div>
             <div>
                 <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Semester</mat-label>
+                    <mat-select formControlName="semester">
+                        <mat-option [value]="s" *ngFor="let s of [1,2,3,4,5,6,7,8]">{{s}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Subject</mat-label>
                     <mat-select formControlName="subject">
                         <mat-option class="text-uppercase" [value]="s" *ngFor="let s of subjectList">

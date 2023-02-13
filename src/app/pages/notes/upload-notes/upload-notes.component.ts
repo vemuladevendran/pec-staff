@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { NotesService } from 'src/app/services/notes/notes.service';
@@ -25,10 +26,12 @@ export class UploadNotesComponent implements OnInit {
     private subjectServe: SubjectService,
     private notesServe: NotesService,
     private route: Router,
+    private loader: NgxSpinnerService,
   ) {
     this.uploadForm = this.fb.group({
       departmentName: ['', Validators.required],
       year: ['', Validators.required],
+      semester: ['', Validators.required],
       subject: ['', Validators.required],
       unit: ['', Validators.required],
       pdfFile: [null, Validators.required]
@@ -65,6 +68,7 @@ export class UploadNotesComponent implements OnInit {
   // handle submit the form
   async handleSubmit(): Promise<void> {
     try {
+      this.loader.show();
       this.updateFormData();
       await this.notesServe.uploadNotes(this.formData);
       this.route.navigate(['/notes']);
@@ -72,6 +76,8 @@ export class UploadNotesComponent implements OnInit {
     } catch (error) {
       console.log(error);
       this.toast.error('Fail to upload notes')
+    }finally{
+      this.loader.hide();
     }
   }
 
