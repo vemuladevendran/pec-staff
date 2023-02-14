@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UploadMarksComponent } from './upload-marks/upload-marks.component';
+import { ShowMarksComponent } from './show-marks/show-marks.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -26,7 +27,8 @@ const materialModules = [
   declarations: [
     MarksComponent,
     UploadMarksSetComponent,
-    UploadMarksComponent
+    UploadMarksComponent,
+    ShowMarksComponent
   ],
   imports: [
     CommonModule,

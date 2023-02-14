@@ -66,7 +66,7 @@ export class MarkAttendanceComponent implements OnInit {
   async getStudents(): Promise<void> {
     try {
       const day = new Date().getDay();
-      if (this.daysInWeek[day] === 'sunday' || 'saturday') {
+      if (this.daysInWeek[day] === 'sunday') {
         this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
         return;
       }

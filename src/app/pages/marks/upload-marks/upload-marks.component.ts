@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { InternalMarksService } from 'src/app/services/internal-marks/internal-marks.service';
 import { StudentService } from 'src/app/services/student/student.service';
 
 @Component({
@@ -23,6 +24,8 @@ export class UploadMarksComponent implements OnInit {
     private loader: NgxSpinnerService,
     private studentServe: StudentService,
     private route: ActivatedRoute,
+    private router: Router,
+    private marksServe: InternalMarksService,
   ) {
     this.department = this.route.snapshot.paramMap.get('department') ?? '';
     this.year = this.route.snapshot.paramMap.get('year') ?? '';
@@ -85,12 +88,16 @@ export class UploadMarksComponent implements OnInit {
   // on submit
   async handleSubmit(): Promise<void> {
     try {
+      this.loader.show();
       const data = this.marksForm.value;
-      console.log(data, '----------');
-
-    } catch (error) {
+      const result = await this.marksServe.uploadMarks(data);
+      this.toast.success(result?.message);
+      this.router.navigate(['/marks']);
+    } catch (error: any) {
       console.log(error);
-      this.toast.error('Fail to upload');
+      this.toast.error(error?.error.message);
+    } finally {
+      this.loader.hide();
     }
   }
 

@@ -6,27 +6,28 @@ import { SettingsService } from '../settings/settings.service';
 @Injectable({
   providedIn: 'root'
 })
-export class NotesService {
+export class InternalMarksService {
+
   constructor(
     private http: HttpClient,
     private settings: SettingsService,
 
   ) { }
 
-  uploadNotes(data: any): Promise<any> {
-    const url = `${this.settings.API_BASE_URL}/notes`;
+  uploadMarks(data: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/internal-marks`;
     return lastValueFrom(this.http.post(url, data));
   }
 
-  getNotes(filters: any): Promise<any> {
-    const url = `${this.settings.API_BASE_URL}/notes`;
+  getMarks(filters?: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/internal-marks`;
     return lastValueFrom(this.http.get(url, {
       params: filters,
     }));
   }
 
-  deleteNotes(id: any): Promise<any> {
-    const url = `${this.settings.API_BASE_URL}/notes/${id}`;
-    return lastValueFrom(this.http.delete(url));
+  getMarksById(id: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/internal-marks/${id}`;
+    return lastValueFrom(this.http.get(url));
   }
 }
