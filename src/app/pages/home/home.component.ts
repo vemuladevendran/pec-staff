@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -8,8 +9,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   showLogout = false;
+  announcementDetails: any[] = [];
   constructor(
     private authServe: AuthService,
+    private announcServe: AnnouncementService,
   ) { }
 
 
@@ -18,10 +21,21 @@ export class HomeComponent implements OnInit {
   }
 
   // log out
-  logOut(){
+  logOut() {
     this.authServe.logout();
   }
+
+  async getBannerDetails(): Promise<void> {
+    try {
+      const data = await this.announcServe.getAnnouncements();
+      this.announcementDetails = data.data;
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
   ngOnInit(): void {
+    this.getBannerDetails();
   }
 
 }
