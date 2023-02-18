@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       console.error(error);
       this.toast.error(error?.error.message)
     }finally{
-      this.loader.show();
+      this.loader.hide();
     }
   }
 
