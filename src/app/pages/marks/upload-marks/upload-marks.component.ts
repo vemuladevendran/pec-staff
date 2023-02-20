@@ -17,6 +17,7 @@ export class UploadMarksComponent implements OnInit {
   semester = '';
   studentsList: any = [];
   subject = '';
+  section = '';
   marksForm: FormGroup | any;
   constructor(
     private fb: FormBuilder,
@@ -31,6 +32,7 @@ export class UploadMarksComponent implements OnInit {
     this.year = this.route.snapshot.paramMap.get('year') ?? '';
     this.semester = this.route.snapshot.paramMap.get('semester') ?? '';
     this.subject = this.route.snapshot.paramMap.get('subject') ?? '';
+    this.section = this.route.snapshot.paramMap.get('section') ?? '';
     this.init();
   }
 
@@ -52,9 +54,12 @@ export class UploadMarksComponent implements OnInit {
       this.loader.show();
       const filters = {
         department: this.department,
-        year: this.year
+        year: this.year,
+        section: this.section === 'all' ? '' : this.section,
       }
-      this.studentsList = await this.studentServe.getStudents(filters);
+      
+      const data = await this.studentServe.getStudents(filters);
+      this.studentsList = data?.data;
       this.createMarkList();
     } catch (error) {
       console.log(error);

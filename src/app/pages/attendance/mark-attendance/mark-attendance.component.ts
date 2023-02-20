@@ -70,11 +70,12 @@ export class MarkAttendanceComponent implements OnInit {
         this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
         return;
       }
-      this.studentsList = await this.studentServe.getStudents({
+      const data = await this.studentServe.getStudents({
         departmentName: this.attendanceForm.value.departmentName,
         year: this.attendanceForm.value.year,
         section: this.attendanceForm.value.section,
       });
+      this.studentsList = data?.data;
       this.getPeriods();
       this.createAttendanceList();
     } catch (error: any) {

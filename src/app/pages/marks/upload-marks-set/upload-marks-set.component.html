@@ -14,11 +14,20 @@
             <div class="col-lg-3 col-md-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Year</mat-label>
-                    <mat-select formControlName="year">
+                    <mat-select formControlName="year" (selectionChange)="getSections()">
                         <mat-option value="firstYear">First Year </mat-option>
                         <mat-option value="secondYear">Second Year </mat-option>
                         <mat-option value="thirdYear">Third Year </mat-option>
                         <mat-option value="fourthYear">Fourth Year </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Section</mat-label>
+                    <mat-select formControlName="section">
+                        <mat-option [value]="s?.section" *ngFor="let s of sectionList"> {{s?.section}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

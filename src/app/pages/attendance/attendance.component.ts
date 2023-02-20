@@ -65,6 +65,7 @@ export class AttendanceComponent implements OnInit {
 
   absentList(data: any): void {
     this.dialog.open(AbsentListComponent, {
+      height:'80%',
       data: {
         data
       }

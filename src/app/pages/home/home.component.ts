@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UploadMarksSetComponent } from '../marks/upload-marks-set/upload-marks-set.component';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private authServe: AuthService,
     private announcServe: AnnouncementService,
+    public dialog: MatDialog,
   ) { }
 
 
@@ -34,6 +37,14 @@ export class HomeComponent implements OnInit {
 
     }
   }
+
+  // open selection set
+  selectionSet(): void {
+    this.dialog.open(UploadMarksSetComponent, {
+      panelClass: 'my-dialog'
+    })
+  };
+  
   ngOnInit(): void {
     this.getBannerDetails();
   }

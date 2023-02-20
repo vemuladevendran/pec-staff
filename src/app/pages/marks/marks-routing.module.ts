@@ -6,7 +6,7 @@ import { UploadMarksComponent } from './upload-marks/upload-marks.component';
 
 const routes: Routes = [
   { path: '', component: MarksComponent },
-  { path: 'upload/:department/:year/:semester/:subject', component: UploadMarksComponent },
+  { path: 'upload/:department/:year/:section/:semester/:subject', component: UploadMarksComponent },
   { path: 'details/:id', component: ShowMarksComponent },
 ];
 
