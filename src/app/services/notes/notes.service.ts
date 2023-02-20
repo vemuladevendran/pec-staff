@@ -29,4 +29,4 @@ export class NotesService {
     const url = `${this.settings.API_BASE_URL}/notes/${id}`;
     return lastValueFrom(this.http.delete(url));
   }
-}
+};

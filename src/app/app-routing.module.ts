@@ -20,6 +20,7 @@ const routes: Routes = [
       { path: 'timetable', loadChildren: () => import('./pages/timetable/timetable.module').then(m => m.TimetableModule) },
       { path: 'notes', loadChildren: () => import('./pages/notes/notes.module').then(m => m.NotesModule) },
       { path: 'marks', loadChildren: () => import('./pages/marks/marks.module').then(m => m.MarksModule) },
+      { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       {
         path: '**',
         redirectTo: '/home',
