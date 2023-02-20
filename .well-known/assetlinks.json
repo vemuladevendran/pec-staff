@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.pecstaff.com",
+      "sha256_cert_fingerprints": [
+        "FF:39:90:58:01:94:46:D9:98:8A:3A:24:3B:3A:B2:1D:5F:F0:7B:BD:7F:6F:DF:43:BE:83:C5:30:50:54:9A:26"
+      ]
+    }
+  }
+]
