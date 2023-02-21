@@ -1,0 +1,29 @@
+<div class="container py-3">
+    <div class="row">
+        <h3 class="fw-bold">Menties List</h3>
+        <hr>
+        <div class="col-12">
+            <h2 *ngIf="mentiesList.length === 0">No data found</h2>
+            <div class="col-12 table-responsive mt-3" *ngIf="mentiesList.length > 0">
+                <table class="table table-hover border">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col" class="d-none d-md-block">Roll Number</th>
+                            <th scope="col">Exam Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let m of mentiesList; index as i">
+                            <th class="py-3" scope="row">{{i+1}}</th>
+                            <td class="py-3">{{m.studentName}}</td>
+                            <td class="py-3 d-none d-md-block">{{m.rollNumber}}</td>
+                            <td class="py-3">{{m.examNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

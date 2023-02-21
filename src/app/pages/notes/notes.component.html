@@ -53,34 +53,34 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col" class="text-center">Department</th>
-                        <th scope="col" class="text-center">Year</th>
-                        <th scope="col" class="text-center">semester</th>
-                        <th scope="col" class="text-center">Subject</th>
-                        <th scope="col" class="text-center">Unit</th>
-                        <th scope="col" class="text-center">Download</th>
-                        <th scope="col" class="text-center">Delete</th>
+                        <th class="text-center">Department</th>
+                        <th class="text-center">Year</th>
+                        <th class="text-center">semester</th>
+                        <th class="text-center">Subject</th>
+                        <th class="text-center">Unit</th>
+                        <th class="text-center">Download</th>
+                        <th class="text-center">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let n of notes; index as i">
                         <th scope="row" class="text-center">{{i+1}}</th>
-                        <th class="text-center">{{n.departmentName}}</th>
-                        <th class="text-center">{{n.year}}</th>
-                        <th class="text-center">{{n.semester}}</th>
-                        <th class="text-center">{{n.subject}}</th>
-                        <th class="text-center">{{n.unit}}</th>
-                        <th class="text-center">
+                        <td class="text-center">{{n.departmentName}}</td>
+                        <td class="text-center text-uppercase">{{n.year}}</td>
+                        <td class="text-center">{{n.semester}}</td>
+                        <td class="text-center">{{n.subject}}</td>
+                        <td class="text-center">{{n.unit}}</td>
+                        <td class="text-center">
                             <a target="_blank" [href]="n?.pdfFile" download>
                                 <mat-icon aria-hidden="false" aria-label="Edit"
                                     matTooltip="Download">download</mat-icon>
                             </a>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <div class="text-center cursor-pointer" (click)="deleteNotes(n.id)">
                                 <mat-icon aria-hidden="false" aria-label="Edit" matTooltip="Delete">delete</mat-icon>
                             </div>
-                        </th>
+                        </td>
                     </tr>
                 </tbody>
             </table>

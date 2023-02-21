@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'notes', loadChildren: () => import('./pages/notes/notes.module').then(m => m.NotesModule) },
       { path: 'marks', loadChildren: () => import('./pages/marks/marks.module').then(m => m.MarksModule) },
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'menties', loadChildren: () => import('./pages/menties/menties.module').then(m => m.MentiesModule) },
       {
         path: '**',
         redirectTo: '/home',
