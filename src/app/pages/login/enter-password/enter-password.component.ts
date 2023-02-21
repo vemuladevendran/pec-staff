@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -20,6 +21,7 @@ export class EnterPasswordComponent implements OnInit {
     private tokenServe: TokenService,
     private router: Router,
     private route: ActivatedRoute,
+    private loader: NgxSpinnerService,
   ) {
     this.getPageDetails();
   }
@@ -27,6 +29,7 @@ export class EnterPasswordComponent implements OnInit {
   async passwordDetails(e: Event): Promise<void> {
     try {
       e.preventDefault();
+      this.loader.show();
       const data = {
         email: this.email,
         password: this.password.value,
@@ -43,6 +46,8 @@ export class EnterPasswordComponent implements OnInit {
     } catch (error: any) {
       console.error(error);
       this.toast.error(error?.error.message)
+    }finally{
+      this.loader.hide();
     }
   }
 
