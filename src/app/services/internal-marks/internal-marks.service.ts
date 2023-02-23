@@ -24,10 +24,24 @@ export class InternalMarksService {
     return lastValueFrom(this.http.get(url, {
       params: filters,
     }));
-  }
+  };
+
+  getMarksByStudent(examNumber: any, semester?: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/internal-marks/student/${examNumber}`;
+    return lastValueFrom(this.http.get(url, {
+      params: semester,
+    }));
+  };
 
   getMarksById(id: any): Promise<any> {
     const url = `${this.settings.API_BASE_URL}/internal-marks/${id}`;
     return lastValueFrom(this.http.get(url));
+  };
+
+  getSemesterMarksByStudent(examNumber: any, semester?: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/semester-marks/student/${examNumber}`;
+    return lastValueFrom(this.http.get(url, {
+      params: semester,
+    }));
   }
 }

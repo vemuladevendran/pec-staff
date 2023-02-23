@@ -15,7 +15,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let m of mentiesList; index as i">
+                        <tr *ngFor="let m of mentiesList; index as i" (click)="viewStudent(m.id)">
                             <th class="py-3" scope="row">{{i+1}}</th>
                             <td class="py-3">{{m.studentName}}</td>
                             <td class="py-3 d-none d-md-block">{{m.rollNumber}}</td>

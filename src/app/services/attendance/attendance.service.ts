@@ -25,5 +25,11 @@ export class AttendanceService {
     return lastValueFrom(this.http.get(url, {
       params: filters,
     }));
+  };
+
+  // get attendance by student
+  getAttendanceDetailsByStudent(examNumber: any): Promise<any> {
+    const url = `${this.settings.API_BASE_URL}/attendance/${examNumber}`;
+    return lastValueFrom(this.http.get(url));
   }
 }

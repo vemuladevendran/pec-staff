@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  API_HOST: 'http://localhost:3000',
-  // API_HOST: 'https://pec-api.onrender.com',
+  // API_HOST: 'http://localhost:3000',
+  API_HOST: 'https://pec-api.onrender.com',
+  // API_HOST: 'https://ec2-3-113-6-140.ap-northeast-1.compute.amazonaws.com',
+  
   API_BASE: '/api/v1'
 };
 

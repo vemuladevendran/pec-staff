@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="row py-3">
+        <div class="col-12">
+            <div class="text-center">
+                <img [src]="studentData?.photo ? studentData?.photo : '/assets/default-profile.png'" alt="Profile Image"
+                    class="profile_img">
+                <p class="mt-2 fw-bold">{{studentData?.studentName}}</p>
+                <p class="fw-bold fs-5">{{studentData?.examNumber}}</p>
+            </div>
+            <hr>
+            <div class="row details">
+                <div class="col-6 fw-bold">Roll Number : </div>
+                <div class="col-6">{{studentData?.rollNumber}}</div>
+                <div class="col-6 fw-bold">Department : </div>
+                <div class="col-6">{{studentData?.department}}</div>
+                <div class="col-6 fw-bold">Year : </div>
+                <div class="col-6">{{studentData?.year}}</div>
+                <div class="col-6 fw-bold">Section : </div>
+                <div class="col-6">{{studentData?.section}}</div>
+                <div class="col-6 fw-bold">Email : </div>
+                <div class="col-6">{{studentData?.email}}</div>
+                <div class="col-6 fw-bold">Mobile Number : </div>
+                <div class="col-6">{{studentData?.mobileNumber}}</div>
+                <div class="col-6 fw-bold">DOB : </div>
+                <div class="col-6">{{studentData?.dob | date}}</div>
+                <div class="col-6 fw-bold">Address : </div>
+                <div class="col-6">{{studentData?.address}}</div>
+            </div>
+            <hr>
+            <!-- attendance reports of student -->
+            <div>
+                <h3 class="fw-bold">Attendance Reports</h3>
+                <mat-accordion class="ms-3" *ngFor="let a of attendanceData; index as i">
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <div style="font-size: 14px;">{{a.date | date }}</div>
+                                    <div style="font-size: 14px;">Total Absent : <span class="fw-bold">{{a.absent
+                                            }}</span></div>
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Date</th>
+                                        <th scope="col" class="text-center">PeriodNumber</th>
+                                        <th scope="col" class="text-center">Attendance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let a of a.attendence; ">
+                                        <th scope="row" class="text-center">{{a.date | date}}</th>
+                                        <th scope="row" class="text-center">{{a.periodNumber}}</th>
+                                        <th class="text-center">
+                                            <mat-icon *ngIf="a.present" aria-hidden="false" aria-label="Edit"
+                                                matTooltip="Present" class="text-success">check_circle</mat-icon>
+                                            <mat-icon *ngIf="a.absent" aria-hidden="false" aria-label="Edit"
+                                                matTooltip="Absent" class="text-danger">dangerous</mat-icon>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <hr>
+            <!-- marks details -->
+            <div>
+                <h3 class="fw-bold">Marks Detail</h3>
+                <mat-stepper #stepper>
+                    <mat-step>
+                        <ng-template matStepLabel>Internal Marks</ng-template>
+                        <div>
+                            <h2 class="text-center" *ngIf="marksData.length === 0">No Data Found</h2>
+                            <div class="col-12 col-md-6 col-lg-3 shadow border border-dark my-2 p-3"
+                                *ngFor="let m of marksData">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-uppercase fw-bold">{{m._id}}</p>
+                                    <p>Semester - {{m.semester}}</p>
+                                </div>
+                                <hr>
+                                <div class="row justify-content-between" [ngClass]="s.marks < 50 ? 'bg': ''"
+                                    *ngFor="let s of m.subjects; index as i">
+                                    <p class="mb-0 py-2 col-1 fw-bold">{{i + 1}} </p>
+                                    <p class="mb-0 py-2 col-7 fw-bold">{{s.subject}}</p>
+                                    <p class="mb-0 py-2 col-2">{{s.marks}}</p>
+                                    <p class="mb-0 py-2 col-2">{{s.marks > 50 ? 'P' : 'F'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Semester Marks</ng-template>
+                        <h2 class="text-center" *ngIf="semesterMarksDetails.length === 0">No Data Found</h2>
+                        <div class="col-12 col-md-6 col-lg-3 shadow border border-dark my-2 p-3"
+                            *ngFor="let m of semesterMarksDetails">
+                            <div class="d-flex justify-content-between">
+                                <p class="text-uppercase fw-bold">{{m.examNumber}}</p>
+                                <p class="fw-bold">{{m.exam}}</p>
+                            </div>
+                            <hr>
+                            <div class="row justify-content-between" [ngClass]="s.mark < 50 ? 'bg': ''"
+                                *ngFor="let s of m.subjects">
+                                <p class="mb-0 py-2 col-9 fw-bold">{{s.subjectName}}</p>
+                                <p class="mb-0 py-2 col-2">{{s.mark}}</p>
+                                <p class="mb-0 py-2 col-1">{{s.mark > 50 ? 'P' : 'F'}}</p>
+                            </div>
+                        </div>
+                    </mat-step>
+                </mat-stepper>
+            </div>
+        </div>
+    </div>
+</div>

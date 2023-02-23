@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { MentiesService } from 'src/app/services/menties/menties.service';
@@ -14,6 +15,7 @@ export class MentiesComponent implements OnInit {
     private loader: NgxSpinnerService,
     private toast: ToastrService,
     private mentiesServe: MentiesService,
+    private router: Router,
   ) { }
 
 
@@ -22,14 +24,17 @@ export class MentiesComponent implements OnInit {
     try {
       this.loader.show();
       this.mentiesList = await this.mentiesServe.getMenties();
-      console.log(this.mentiesList, '===============');
-
     } catch (error) {
       console.log(error);
       this.toast.error('Fail to load the details');
     } finally {
       this.loader.hide();
     }
+  };
+
+  // view student
+  viewStudent(id: string) {
+    this.router.navigate([`/menties/${id}`]);
   }
 
   ngOnInit(): void {
