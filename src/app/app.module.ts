@@ -11,7 +11,6 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { CacheInterceptor } from 'cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,12 +37,11 @@ import { CacheInterceptor } from 'cache.interceptor';
     }),
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptorService,
-    //   multi: true,
-    // },
-    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
