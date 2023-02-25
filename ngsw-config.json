@@ -21,8 +21,35 @@
       }
     },
     {
-      "name": "api-app",
-      "urls": ["/api/v1/**"],
+      "name": "api-announcement",
+      "urls": ["/api/v1/announcement"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "1d"
+      }
+    },
+    {
+      "name": "api-notes",
+      "urls": ["/api/v1/notes"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "1d"
+      }
+    },
+    {
+      "name": "api-attendance",
+      "urls": ["/api/v1/attendance"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "1d"
+      }
+    },
+    {
+      "name": "api-menties",
+      "urls": ["/api/v1/menties"],
       "cacheConfig": {
         "strategy": "performance",
         "maxSize": 100,

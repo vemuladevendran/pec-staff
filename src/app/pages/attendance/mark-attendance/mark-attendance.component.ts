@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AttendanceService } from 'src/app/services/attendance/attendance.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
@@ -31,6 +32,7 @@ export class MarkAttendanceComponent implements OnInit {
     private toast: ToastrService,
     private router: Router,
     private fb: FormBuilder,
+    private loader: NgxSpinnerService,
   ) {
     this.attendanceForm = this.fb.group({
       date: [new Date()],
@@ -65,6 +67,7 @@ export class MarkAttendanceComponent implements OnInit {
   // get students
   async getStudents(): Promise<void> {
     try {
+      this.loader.show();
       const day = new Date().getDay();
       if (this.daysInWeek[day] === 'sunday') {
         this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
@@ -82,6 +85,7 @@ export class MarkAttendanceComponent implements OnInit {
       console.log(error);
       this.toast.error(error?.error.message);
     } finally {
+      this.loader.hide();
     }
   }
 
@@ -122,6 +126,7 @@ export class MarkAttendanceComponent implements OnInit {
   // save attendance
   async handleSubmit(): Promise<void> {
     try {
+      this.loader.show();
       const data = this.attendanceForm.value;
       const result = await this.attendanceServe.markAttendance(data)
       this.toast.success(result.message);
@@ -130,6 +135,7 @@ export class MarkAttendanceComponent implements OnInit {
       console.log(error);
       this.toast.error(error?.error.message)
     } finally {
+      this.loader.hide();
     }
   }
 
