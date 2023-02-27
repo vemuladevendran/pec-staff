@@ -102,11 +102,11 @@
                                 <p class="fw-bold">{{m.exam}}</p>
                             </div>
                             <hr>
-                            <div class="row justify-content-between" [ngClass]="s.mark < 50 ? 'bg': ''"
+                            <div class="row" [ngClass]="s.mark < 50 ? 'bg': ''"
                                 *ngFor="let s of m.subjects">
-                                <p class="mb-0 py-2 col-9 fw-bold">{{s.subjectName}}</p>
+                                <p class="mb-0 py-2 col-8" style="font-size: 13px;">{{s.subjectName}}</p>
                                 <p class="mb-0 py-2 col-2">{{s.mark}}</p>
-                                <p class="mb-0 py-2 col-1">{{s.mark > 50 ? 'P' : 'F'}}</p>
+                                <p class="mb-0 py-2 col-2">{{s.mark > 50 ? 'P' : 'F'}}</p>
                             </div>
                         </div>
                     </mat-step>
