@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'marks', loadChildren: () => import('./pages/marks/marks.module').then(m => m.MarksModule) },
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'menties', loadChildren: () => import('./pages/menties/menties.module').then(m => m.MentiesModule) },
+      { path: 'assignments', loadChildren: () => import('./pages/assignments/assignments.module').then(m => m.AssignmentsModule) },
       {
         path: '**',
         redirectTo: '/home',

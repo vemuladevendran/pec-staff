@@ -69,10 +69,10 @@ export class MarkAttendanceComponent implements OnInit {
     try {
       this.loader.show();
       const day = new Date().getDay();
-      if (this.daysInWeek[day] === 'sunday') {
+      if (['saturday', 'sunday'].some(x => this.daysInWeek[day] === x)) {
         this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
         return;
-      }
+      };
       const data = await this.studentServe.getStudents({
         departmentName: this.attendanceForm.value.departmentName,
         year: this.attendanceForm.value.year,
@@ -139,9 +139,19 @@ export class MarkAttendanceComponent implements OnInit {
     }
   }
 
+  // check day
+  checkDay() {
+    const day = new Date().getDay();
+    console.log(this.daysInWeek[day], '=========');
+    if (['saturday', 'sunday'].some(x => this.daysInWeek[day] === x)) {
+      this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
+      this.router.navigate(['/attendance']);
+      return;
+    }
+  }
 
-  // 
   ngOnInit(): void {
+    this.checkDay();
     this.getTokenData();
   }
 

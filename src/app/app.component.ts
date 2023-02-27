@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pec-staff';
+
+  get isOnline(): boolean {
+    return navigator.onLine;
+  }
+  constructor() {
+
+  }
+
 }

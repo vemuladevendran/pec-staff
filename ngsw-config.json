@@ -1,62 +1,6 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
-  "dataGroups": [
-    {
-      "name": "api-profile",
-      "urls": ["/api/v1/profile/teacher"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "3d"
-      }
-    },
-    {
-      "name": "api-time-table",
-      "urls": ["/api/v1/time-table"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "3d"
-      }
-    },
-    {
-      "name": "api-announcement",
-      "urls": ["/api/v1/announcement"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "1h"
-      }
-    },
-    {
-      "name": "api-notes",
-      "urls": ["/api/v1/notes"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "1d"
-      }
-    },
-    {
-      "name": "api-attendance",
-      "urls": ["/api/v1/attendance"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "1h"
-      }
-    },
-    {
-      "name": "api-menties",
-      "urls": ["/api/v1/menties"],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "2d"
-      }
-    }
-  ],
   "assetGroups": [
     {
       "name": "app",

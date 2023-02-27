@@ -18,7 +18,7 @@ export class AuthService {
     private http: HttpClient,
     private settings: SettingsService,
     private router: Router,
-    private token: TokenService
+    private token: TokenService,
   ) { }
 
   checkEmail(data: any) {
