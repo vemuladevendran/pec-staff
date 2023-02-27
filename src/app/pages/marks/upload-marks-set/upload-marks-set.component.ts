@@ -47,7 +47,7 @@ export class UploadMarksSetComponent implements OnInit {
     try {
       const data = await this.tokenServe.getTokenData();
       this.filtersForm.controls['departmentName'].setValue(data?.department);
-      this.filtersForm.controls['subject'].setValue(data?.subject);
+      this.filtersForm.controls['subject'].setValue(data?.majorSubject);
     } catch (error) {
       console.log(error);
     }
