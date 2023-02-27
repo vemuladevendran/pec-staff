@@ -73,7 +73,8 @@
                                         {{u?.marks ? u?.marks : 'Pending'}}
                                     </th> -->
                                     <th class="text-center">
-                                        <button class="btn btn-primary">Marks</button>
+                                        <button class="btn btn-primary"
+                                            (click)="openMarksDialog({name:a?._id.studentName, assignment: u.unit, id:u.id})">Marks</button>
                                     </th>
                                 </tr>
                             </tbody>

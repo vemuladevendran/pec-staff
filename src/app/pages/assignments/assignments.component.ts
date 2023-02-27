@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 import { AssignmentsService } from 'src/app/services/assignments/assignments.service';
 import { TokenService } from 'src/app/services/token/token.service';
+import { AssignMarksComponent } from './assign-marks/assign-marks.component';
 
 @Component({
   selector: 'app-assignments',
@@ -24,7 +26,9 @@ export class AssignmentsComponent implements OnInit {
     private toast: ToastrService,
     private assignmentsServe: AssignmentsService,
     private fb: FormBuilder,
-    private tokenServe: TokenService
+    private tokenServe: TokenService,
+    public dialog: MatDialog,
+
   ) {
     this.filtersForm = this.fb.group({
       departmentName: [''],
@@ -65,6 +69,15 @@ export class AssignmentsComponent implements OnInit {
     }
   };
 
+  // open Marks Dialog
+  openMarksDialog(data:any): void {
+    this.dialog.open(AssignMarksComponent, {
+      panelClass: 'my-dialog',
+      data: {
+        data
+      }
+    })
+  };
 
   setFormValues() {
     this.filtersForm.controls['departmentName'].setValue(this.staffDetails?.department);

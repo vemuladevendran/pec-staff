@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { AssignMarksComponent } from './assign-marks/assign-marks.component';
+import { MatDialogModule } from '@angular/material/dialog';
 const materialModules = [
   MatFormFieldModule,
   MatOptionModule,
@@ -17,11 +19,13 @@ const materialModules = [
   MatInputModule,
   MatIconModule,
   MatExpansionModule,
+  MatDialogModule,
 ]
 
 @NgModule({
   declarations: [
-    AssignmentsComponent
+    AssignmentsComponent,
+    AssignMarksComponent
   ],
   imports: [
     CommonModule,
