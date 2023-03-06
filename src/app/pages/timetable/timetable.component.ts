@@ -43,7 +43,7 @@ export class TimetableComponent implements OnInit {
       departmentName: data?.department,
     }
     this.getTimeTables(this.filters);
-    this.teacherSubject = data?.subject;
+    this.teacherSubject = data?.majorSubject;
   }
 
 

@@ -23,6 +23,7 @@ const routes: Routes = [
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'menties', loadChildren: () => import('./pages/menties/menties.module').then(m => m.MentiesModule) },
       { path: 'assignments', loadChildren: () => import('./pages/assignments/assignments.module').then(m => m.AssignmentsModule) },
+      { path: 'placement', loadChildren: () => import('./pages/placement/placement.module').then(m => m.PlacementModule) },
       {
         path: '**',
         redirectTo: '/home',

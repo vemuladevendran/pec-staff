@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AttendanceService } from 'src/app/services/attendance/attendance.service';
 import { InternalMarksService } from 'src/app/services/internal-marks/internal-marks.service';
+import { PlacementService } from 'src/app/services/placement/placement.service';
 import { StudentService } from 'src/app/services/student/student.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class ViewStudentComponent implements OnInit {
   marksData: any = [];
   semesterMarksDetails: any[] = [];
   studentId: string = '';
+  placementDetails:any[] = [];
   constructor(
     private loader: NgxSpinnerService,
     private toast: ToastrService,
@@ -25,6 +27,7 @@ export class ViewStudentComponent implements OnInit {
     private route: ActivatedRoute,
     private attendanceServe: AttendanceService,
     private marksServe: InternalMarksService,
+    private placementServe: PlacementService,
   ) {
     this.studentId = this.route.snapshot.paramMap.get('id') ?? '';
   }
@@ -67,11 +70,23 @@ export class ViewStudentComponent implements OnInit {
     try {
       const data = await this.marksServe.getSemesterMarksByStudent(this.studentData.examNumber);
       this.semesterMarksDetails = data.data;
+      this.getPlacementDetails();
     } catch (error) {
       console.log(error);
       this.toast.error('Fail to load semester marks')
     }
-  }
+  };
+
+  // get placement details
+
+  async getPlacementDetails(): Promise<void> {
+    try {
+      this.placementDetails = await this.placementServe.getPlacementDetails({ examNumber: this.studentData?.examNumber });
+    } catch (error) {
+      console.log(error);
+      this.toast.error('Fail to load placement details');
+    };
+  };
 
   ngOnInit(): void {
     this.getStudentData();
