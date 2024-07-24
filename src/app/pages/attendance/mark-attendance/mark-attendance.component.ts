@@ -12,17 +12,26 @@ import { TokenService } from 'src/app/services/token/token.service';
 @Component({
   selector: 'app-mark-attendance',
   templateUrl: './mark-attendance.component.html',
-  styleUrls: ['./mark-attendance.component.scss']
+  styleUrls: ['./mark-attendance.component.scss'],
 })
 export class MarkAttendanceComponent implements OnInit {
-
   attendanceForm: FormGroup;
   sectionList: any[] = [];
   departmentList: any[] = [];
   studentsList: any[] = [];
-  daysInWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  daysInWeek = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
   weekTimeTable: any;
   currentPeriod = '';
+  uncheckedIndices: Set<number> = new Set(); // Array to track unchecked indices
+  uncheckedOd: Set<number> = new Set()
   constructor(
     private studentServe: StudentService,
     private departmentServe: DepartmentService,
@@ -32,7 +41,7 @@ export class MarkAttendanceComponent implements OnInit {
     private toast: ToastrService,
     private router: Router,
     private fb: FormBuilder,
-    private loader: NgxSpinnerService,
+    private loader: NgxSpinnerService
   ) {
     this.attendanceForm = this.fb.group({
       date: [new Date()],
@@ -45,7 +54,6 @@ export class MarkAttendanceComponent implements OnInit {
     });
   }
 
-
   // get token data
   async getTokenData(): Promise<void> {
     const data = await this.tokenServe.getTokenData();
@@ -57,10 +65,13 @@ export class MarkAttendanceComponent implements OnInit {
   async getSections(): Promise<void> {
     try {
       this.attendanceForm.controls['section'].setValue('');
-      this.sectionList = await this.departmentServe.getSections(this.attendanceForm.value.departmentName, this.attendanceForm.value.year);
+      this.sectionList = await this.departmentServe.getSections(
+        this.attendanceForm.value.departmentName,
+        this.attendanceForm.value.year
+      );
     } catch (error: any) {
       console.log(error);
-      this.toast.error(error?.error.message)
+      this.toast.error(error?.error.message);
     }
   }
 
@@ -69,10 +80,10 @@ export class MarkAttendanceComponent implements OnInit {
     try {
       this.loader.show();
       const day = new Date().getDay();
-      if (['saturday', 'sunday'].some(x => this.daysInWeek[day] === x)) {
+      if (['saturday', 'sunday'].some((x) => this.daysInWeek[day] === x)) {
         this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
         return;
-      };
+      }
       const data = await this.studentServe.getStudents({
         departmentName: this.attendanceForm.value.departmentName,
         year: this.attendanceForm.value.year,
@@ -93,10 +104,14 @@ export class MarkAttendanceComponent implements OnInit {
   createAttendanceList(): void {
     const att = this.attendanceForm.get('students') as FormArray;
     this.studentsList.map((x) => {
-      att.push(this.fb.group({
-        examNumber: [x.examNumber, Validators.required],
-        attendance: [true, Validators.required],
-      }))
+      att.push(
+        this.fb.group({
+          examNumber: [x.examNumber, Validators.required],
+          attendance: [true, Validators.required],
+          odPermission: [false, Validators.required],
+          reason: [''],
+        })
+      );
     });
   }
 
@@ -108,10 +123,10 @@ export class MarkAttendanceComponent implements OnInit {
         departmentName: this.attendanceForm.value.departmentName,
         year: this.attendanceForm.value.year,
         section: this.attendanceForm.value.section,
-        day: this.daysInWeek[day]
-      }
+        day: this.daysInWeek[day],
+      };
       const data = await this.titmetableServe.getTimeTable(filters);
-      this.weekTimeTable = data.data
+      this.weekTimeTable = data.data;
     } catch (error) {
       console.log(error);
     }
@@ -119,7 +134,8 @@ export class MarkAttendanceComponent implements OnInit {
 
   // setcurrent subject
   setCurrentPeriodSubject(): void {
-    this.currentPeriod = this.weekTimeTable[this.attendanceForm.value.periodNumber];
+    this.currentPeriod =
+      this.weekTimeTable[this.attendanceForm.value.periodNumber];
     this.attendanceForm.controls['subject'].setValue(this.currentPeriod);
   }
 
@@ -128,12 +144,12 @@ export class MarkAttendanceComponent implements OnInit {
     try {
       this.loader.show();
       const data = this.attendanceForm.value;
-      const result = await this.attendanceServe.markAttendance(data)
+      const result = await this.attendanceServe.markAttendance(data);
       this.toast.success(result.message);
       this.router.navigate(['/attendance']);
     } catch (error: any) {
       console.log(error);
-      this.toast.error(error?.error.message)
+      this.toast.error(error?.error.message);
     } finally {
       this.loader.hide();
     }
@@ -143,10 +159,42 @@ export class MarkAttendanceComponent implements OnInit {
   checkDay() {
     const day = new Date().getDay();
     console.log(this.daysInWeek[day], '=========');
-    if (['saturday', 'sunday'].some(x => this.daysInWeek[day] === x)) {
+    if (['saturday', 'sunday'].some((x) => this.daysInWeek[day] === x)) {
       this.toast.info(`Attendance can't take on ${this.daysInWeek[day]}`);
       this.router.navigate(['/attendance']);
       return;
+    }
+  }
+
+  // on attendance change
+
+  onAttendanceChange(event: any, index: number): void {
+    const isChecked = event.target.checked;
+    console.log(`Checkbox at index ${index} is ${isChecked ? 'checked' : 'unchecked'}`);
+  
+    const studentsArray = this.attendanceForm.get('students') as FormArray;
+    const studentGroup = studentsArray.at(index) as FormGroup;
+  
+    // Disable odPermission if attendance is checked, otherwise enable it
+    if (isChecked) {
+      studentGroup.get('odPermission')?.enable();
+      this.uncheckedIndices.delete(index);  // Ensure index is removed from uncheckedIndices
+    } else {
+      studentGroup.get('odPermission')?.disable();
+      this.uncheckedOd.delete(index);
+      this.uncheckedIndices.add(index);  // Add index to uncheckedIndices if needed
+    }
+  }
+
+
+  onOdChange(event: any, index: number): void {
+    const isChecked =  !event.target.checked;
+    
+    console.log(`Checkbox at index ${index} is ${isChecked ? 'checked' : 'unchecked'}`);
+    if (isChecked) {
+      this.uncheckedOd.delete(index);
+    } else {
+      this.uncheckedOd.add(index);
     }
   }
 
@@ -154,5 +202,4 @@ export class MarkAttendanceComponent implements OnInit {
     this.checkDay();
     this.getTokenData();
   }
-
 }
